@@ -85,7 +85,10 @@ generateBtn.addEventListener('click', async () => {
         statusText.textContent = "Converting to OGG (This might take a minute)...";
         progressBar.style.width = "20%";
         await ffmpeg.writeFile('input.mp3', await fetchFile(currentFile));
-        await ffmpeg.exec(['-i', 'input.mp3', '-c:a', 'libvorbis', '-q:a', '4', 'output.ogg']);
+        
+        // CRITICAL: Minecraft Jukeboxes require Mono audio (-ac 1) for 3D spatial attenuation to work.
+        // If it's stereo, the sound plays globally at full volume.
+        await ffmpeg.exec(['-i', 'input.mp3', '-c:a', 'libvorbis', '-ac', '1', '-q:a', '4', 'output.ogg']);
         const oggData = await ffmpeg.readFile('output.ogg');
 
         statusText.textContent = "Analyzing Audio Frequencies (FFT)...";
