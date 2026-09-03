@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathart - Music Disc Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dsp.js@1.0.0/dsp.js"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-2xl w-full bg-gray-800 rounded-xl shadow-2xl p-8 border border-gray-700">
+        <h1 class="text-3xl font-bold mb-2 text-center text-blue-400">Mathart Disc Generator</h1>
+        <p class="text-gray-400 text-center mb-8">Convert MP3 into a playable Minecraft Music Disc (.mcdisc)</p>
+
+        <!-- Dropzone -->
+        <div id="dropzone" class="border-2 border-dashed border-gray-600 rounded-lg p-12 text-center hover:border-blue-500 hover:bg-gray-700 transition cursor-pointer mb-6">
+            <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            </svg>
+            <p id="dropzoneText" class="text-lg mb-1">Drag & Drop your .mp3 here</p>
+            <p class="text-sm text-gray-500">or click to browse</p>
+            <input type="file" id="fileInput" class="hidden" accept=".mp3" />
+        </div>
+
+        <!-- Song Info -->
+        <div id="songInfo" class="hidden space-y-4 mb-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-400 mb-1">Song ID (Lowercase, no spaces)</label>
+                <input type="text" id="idInput" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500" placeholder="e.g. numb_linkin_park">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-400 mb-1">Display Title</label>
+                <input type="text" id="titleInput" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500" placeholder="e.g. Numb">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-400 mb-1">Artist</label>
+                <input type="text" id="artistInput" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500" placeholder="e.g. Linkin Park">
+            </div>
+            
+            <button id="generateBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition mt-4">
+                Generate .mcdisc
+            </button>
+        </div>
+
+        <!-- Progress -->
+        <div id="progressSection" class="hidden">
+            <h3 id="statusText" class="text-center text-lg font-medium mb-4 text-yellow-400">Initializing...</h3>
+            <div class="w-full bg-gray-700 rounded-full h-4 mb-4 overflow-hidden">
+                <div id="progressBar" class="bg-blue-500 h-4 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+            <p id="logText" class="text-sm text-gray-400 font-mono text-center h-12 overflow-hidden"></p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
