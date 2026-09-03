@@ -1,5 +1,5 @@
 const { FFmpeg } = FFmpegWASM;
-const { fetchFile } = FFmpegUtil;
+const { fetchFile, toBlobURL } = FFmpegUtil;
 const ffmpeg = new FFmpeg();
 ffmpeg.on('log', ({ message }) => { console.log(message); });
 
@@ -72,9 +72,12 @@ generateBtn.addEventListener('click', async () => {
     try {
         statusText.textContent = "Loading FFmpeg...";
         if (!ffmpeg.loaded) {
+            const baseURL = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/umd';
+            const ffmpegURL = 'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/umd';
             await ffmpeg.load({
-                coreURL: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.js',
-                wasmURL: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.wasm'
+                coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+                wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+                workerURL: await toBlobURL(`${ffmpegURL}/814.ffmpeg.js`, 'text/javascript')
             });
         }
 
