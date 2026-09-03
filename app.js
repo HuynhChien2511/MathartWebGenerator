@@ -73,9 +73,9 @@ generateBtn.addEventListener('click', async () => {
         statusText.textContent = "Loading FFmpeg...";
         if (!ffmpeg.loaded) {
             await ffmpeg.load({
-                coreURL: 'lib/ffmpeg-core.js',
-                wasmURL: 'lib/ffmpeg-core.wasm',
-                workerURL: 'lib/814.ffmpeg.js'
+                coreURL: './lib/ffmpeg-core.js',
+                wasmURL: './lib/ffmpeg-core.wasm',
+                workerURL: './lib/814.ffmpeg.js'
             });
         }
 
@@ -120,8 +120,8 @@ generateBtn.addEventListener('click', async () => {
         progressBar.classList.replace('bg-blue-500', 'bg-green-500');
         
     } catch (e) {
-        console.error(e);
-        statusText.textContent = "Error: " + e.message;
+        console.error("Full error details:", e);
+        statusText.textContent = "Error: " + (e.message || JSON.stringify(e) || String(e));
         statusText.classList.replace('text-yellow-400', 'text-red-500');
     }
 });
