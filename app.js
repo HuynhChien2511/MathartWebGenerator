@@ -72,12 +72,10 @@ generateBtn.addEventListener('click', async () => {
     try {
         statusText.textContent = "Loading FFmpeg...";
         if (!ffmpeg.loaded) {
-            const baseURL = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/umd';
-            const ffmpegURL = 'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/umd';
             await ffmpeg.load({
-                coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
-                wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
-                workerURL: await toBlobURL(`${ffmpegURL}/814.ffmpeg.js`, 'text/javascript')
+                coreURL: 'lib/ffmpeg-core.js',
+                wasmURL: 'lib/ffmpeg-core.wasm',
+                workerURL: 'lib/814.ffmpeg.js'
             });
         }
 
