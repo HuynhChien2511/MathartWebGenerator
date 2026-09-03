@@ -72,10 +72,13 @@ generateBtn.addEventListener('click', async () => {
     try {
         statusText.textContent = "Loading FFmpeg...";
         if (!ffmpeg.loaded) {
+            let base = window.location.href.split('?')[0];
+            if (base.endsWith('index.html')) base = base.replace('index.html', '');
+            if (!base.endsWith('/')) base += '/';
             await ffmpeg.load({
-                coreURL: './lib/ffmpeg-core.js',
-                wasmURL: './lib/ffmpeg-core.wasm',
-                workerURL: './lib/814.ffmpeg.js'
+                coreURL: base + 'lib/ffmpeg-core.js',
+                wasmURL: base + 'lib/ffmpeg-core.wasm',
+                workerURL: base + 'lib/814.ffmpeg.js'
             });
         }
 
