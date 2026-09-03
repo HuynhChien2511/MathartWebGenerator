@@ -53,6 +53,28 @@
             </div>
             <p id="logText" class="text-sm text-gray-400 font-mono text-center h-12 overflow-hidden"></p>
         </div>
+
+        <!-- Tutorial Section -->
+        <div class="mt-10 border-t border-gray-700 pt-8">
+            <h2 class="text-xl font-bold text-white mb-5 flex items-center">
+                <svg class="w-6 h-6 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Hướng dẫn sử dụng (Tutorial)
+            </h2>
+            <ol class="space-y-4 text-gray-300 text-sm list-decimal list-outside ml-4">
+                <li><strong class="text-white">Chọn Nhạc:</strong> Kéo thả file <code class="bg-gray-700 px-1 py-0.5 rounded text-blue-300">.mp3</code> của bạn vào khu vực nét đứt ở trên.</li>
+                <li><strong class="text-white">Điền Thông Tin:</strong> Điền Tên bài hát và Ca sĩ. Sửa lại ID (phải viết liền không dấu, không viết hoa, ví dụ: <code class="bg-gray-700 px-1 py-0.5 rounded text-blue-300">numb_linkin_park</code>).</li>
+                <li><strong class="text-white">Tạo Đĩa:</strong> Bấm <strong class="text-blue-400">Generate .mcdisc</strong>. Quá trình nén âm thanh không gian 3D Mono và tách dải tần FFT chạy hoàn toàn trên trình duyệt của bạn (có thể mất vài phút).</li>
+                <li><strong class="text-white">Cài Đặt:</strong> Copy file <code class="bg-gray-700 px-1 py-0.5 rounded text-blue-300">.mcdisc</code> vừa tải về và dán vào thư mục <code class="bg-gray-700 px-1.5 py-0.5 rounded text-green-400 font-mono">.minecraft/config/musicengraver/discs/</code>. (Thư mục này nằm trong thư mục cài game/modpack của bạn).</li>
+                <li><strong class="text-white">Thưởng Thức:</strong> Vào game! Lấy đĩa từ túi đồ <strong>Creative (Tab Tools & Utilities)</strong> hoặc chế tạo <strong>Đĩa trắng</strong> (1 Than + 1 Sắt hạt) rồi cho vào <strong>Máy cắt đá (Stonecutter)</strong> để cắt ra đĩa của bạn.</li>
+            </ol>
+            
+            <div class="mt-6 p-4 bg-gray-700/40 rounded-lg border border-gray-600 flex items-start">
+                <svg class="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    <strong>Lưu ý:</strong> Quá trình chuyển đổi ngốn khá nhiều CPU và RAM vì chạy WebAssembly FFmpeg cục bộ. Không nên chuyển đổi nhiều bài hát lớn cùng lúc. Vui lòng giữ tab mở cho đến khi tải xong. Mọi file được tạo ra đều chỉ nằm trên RAM máy bạn, hoàn toàn không bị upload lên máy chủ ngoài.
+                </p>
+            </div>
+        </div>
     </div>
 
     <script src="app.js"></script>
