@@ -1,5 +1,7 @@
-const { createFFmpeg, fetchFile } = FFmpeg;
-const ffmpeg = createFFmpeg({ log: true });
+const { FFmpeg } = window.FFmpeg;
+const { fetchFile } = window.FFmpegUtil;
+const ffmpeg = new FFmpeg();
+ffmpeg.on('log', ({ message }) => { console.log(message); });
 
 const dropzone = document.getElementById('dropzone');
 const fileInput = document.getElementById('fileInput');
@@ -69,15 +71,18 @@ generateBtn.addEventListener('click', async () => {
 
     try {
         statusText.textContent = "Loading FFmpeg...";
-        if (!ffmpeg.isLoaded()) {
-            await ffmpeg.load();
+        if (!ffmpeg.loaded) {
+            await ffmpeg.load({
+                coreURL: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.js',
+                wasmURL: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.wasm'
+            });
         }
 
         statusText.textContent = "Converting to OGG (This might take a minute)...";
         progressBar.style.width = "20%";
-        ffmpeg.FS('writeFile', 'input.mp3', await fetchFile(currentFile));
-        await ffmpeg.run('-i', 'input.mp3', '-c:a', 'libvorbis', '-q:a', '4', 'output.ogg');
-        const oggData = ffmpeg.FS('readFile', 'output.ogg');
+        await ffmpeg.writeFile('input.mp3', await fetchFile(currentFile));
+        await ffmpeg.exec(['-i', 'input.mp3', '-c:a', 'libvorbis', '-q:a', '4', 'output.ogg']);
+        const oggData = await ffmpeg.readFile('output.ogg');
 
         statusText.textContent = "Analyzing Audio Frequencies (FFT)...";
         progressBar.style.width = "50%";
