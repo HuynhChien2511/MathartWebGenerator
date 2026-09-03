@@ -1,5 +1,5 @@
-const { FFmpeg } = window.FFmpeg;
-const { fetchFile } = window.FFmpegUtil;
+const { FFmpeg } = FFmpegWASM;
+const { fetchFile } = FFmpegUtil;
 const ffmpeg = new FFmpeg();
 ffmpeg.on('log', ({ message }) => { console.log(message); });
 
